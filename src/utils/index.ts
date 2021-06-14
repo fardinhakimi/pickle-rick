@@ -22,6 +22,14 @@ export const dimensions: Record<Pickle.DimensionCode, string>  = {
 }
 
 
+export const getAllDimensions = () => {
+    const items: Array<{ name: string, code: string}> = []
+    for (const [key, value] of Object.entries(dimensions)) {
+      items.push({ name: value, code: key })
+    }
+    return items
+}
+
 export const getDimensionByCode = (code: Pickle.DimensionCode = 'RD') => dimensions[code]
 
 
