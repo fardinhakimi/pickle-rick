@@ -1,4 +1,4 @@
-import client from "./apollo-client"
+import client from "graphql/apollo-client"
 import { gql } from "@apollo/client"
 
 const filterLocationsQuery = gql`query filterLocations($page: Int, $filter: FilterLocation) {

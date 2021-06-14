@@ -205,3 +205,96 @@ export const getLocationsTypes = () => {
         }
     ]
 }
+
+
+export enum Species {
+    ALIEN = 'Alien',
+    HUMAN = 'Human',
+    ROBOT = 'Robot'
+}
+
+export enum CharacterStatus {
+    DEAD = 'Dead',
+    Alive = 'Alive'
+}
+
+
+const calculateDemographics = (numberOfRobots: number, numberOfAliens: number, numberOfHumans: number) => {
+
+}
+
+const groupbyNonResidents = (guests: Array<Pickle.Character>) => {
+
+	const nonResidents: { humans: number, robots: number, aliens: number} = guests.reduce( (stats, character) => {
+
+        if(character.species === Species.HUMAN) {
+            return {
+                ...stats,
+                humans: stats.humans +1
+            }
+        }
+        if(character.species === Species.ALIEN) {
+            return {
+                ...stats,
+                aliens: stats.aliens + 1
+            }
+        }
+        if(character.species === Species.ROBOT) {
+            return {
+                ...stats,
+                robots: stats.robots + 1
+            }
+        }
+        return stats
+
+    }, {
+        humans: 0,
+        robots: 0,
+        aliens: 0
+    })
+
+    return nonResidents
+
+}
+
+
+const calculatePercentage= (total, number) => {
+    if(number <= 0 || total <= 0) return 0
+    return (100 * number) / total
+}
+
+export const calculateStats = (location: Pickle.Location) => {
+
+    const aliveResidents = location.residents.filter( item => item.status === CharacterStatus.DEAD).length
+	const deadResidents = location.residents.filter( item => item.status === CharacterStatus.DEAD).length
+	const robots = location.residents.filter( item => item.species === Species.ROBOT)
+	const aliens = location.residents.filter( item => item.species === Species.ALIEN)
+	const humans = location.residents.filter( item => item.species === Species.HUMAN)
+    const guests = location.residents.filter ( item => item.origin.id !== location.id)
+
+    const groupedGuests = groupbyNonResidents(guests)
+
+    const numberOfRobots = robots.length  - groupedGuests.robots
+    const numberOfAliens = aliens.length  - groupedGuests.aliens 
+    const numberOfHumans = humans.length  - groupedGuests.humans
+
+    const totalResidentPopulation = numberOfRobots + numberOfAliens + numberOfHumans
+
+    return {
+        aliveResidents,
+        deadResidents,
+        numberOfGuests: guests.length,
+        humans: {
+            total: numberOfHumans,
+            percentage: calculatePercentage(totalResidentPopulation, numberOfHumans)
+        },
+        aliens: {
+            total: numberOfAliens,
+            percentage: calculatePercentage(totalResidentPopulation, numberOfAliens)
+        },
+        robots: {
+            total: numberOfRobots,
+            percentage: calculatePercentage(totalResidentPopulation, numberOfRobots)
+        }
+    }
+}
