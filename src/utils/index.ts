@@ -255,7 +255,7 @@ const groupbyNonResidents = (guests: Array<Pickle.Character>) => {
 
 const calculatePercentage= (total: number, number: number) => {
     if(number <= 0 || total <= 0) return 0
-    return (100 * number) / total
+    return Math.round((100 * number) / total)
 }
 
 export const calculateStats = (location: Pickle.Location) => {
