@@ -62,3 +62,7 @@ export const StyledLocationInfoTitle = styled.h2`
         font-size: 16px;
     }
 ` 
+
+export const StyledLocationPageWrapper = styled.div`
+    ${space({ mb: 4})};
+`

@@ -2,6 +2,7 @@ import { GetServerSidePropsContext  } from 'next'
 import Layout from "components/Layout"
 import ResidentList from 'components/Residents/ResidentList'
 import LocationInfo from 'components/Location/LocationInfo'
+import { StyledLocationPageWrapper } from 'components/Location/location.components'
 import { findLocationById } from "graphql/queries/getLocationById"
 import { getValueFromParams } from 'utils'
 
@@ -9,8 +10,10 @@ const LocationPage = ({ location }: { location: Pickle.Location | null, hasError
 
 	return (
 		<Layout>
-			<LocationInfo location={location}/>
-            <ResidentList residents={location.residents}/>
+			<StyledLocationPageWrapper>
+				<LocationInfo location={location}/>
+				<ResidentList residents={location.residents}/>
+			</StyledLocationPageWrapper>
 		</Layout>
 	)
 }

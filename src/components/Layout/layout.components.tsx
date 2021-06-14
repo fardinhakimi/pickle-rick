@@ -1,6 +1,7 @@
 
 import styled from 'styled-components'
 import { space } from '@styled-system/space'
+import { StyledButton } from 'components/Location/location.components'
 
 export const StyledLayout = styled.div`
   background-color: var(--gray-lighten);
@@ -13,8 +14,8 @@ export const StyledLayout = styled.div`
 `
 
 export const StyledContainer = styled.div`
-display: inline;
-${space({ px: '150px' })};
+  display: block;
+  ${space({ px: '150px' })};
 `
 
 export const StyledContent = styled.section`
@@ -23,16 +24,12 @@ export const StyledContent = styled.section`
 `
 
 export const StyledHeader = styled.div`
-  height: 300px;
-  display: flex;
+  max-height: 300px;
   color: var(--white);
   background-image: url('/images/pickle.jpg');
   background-size: cover;
   background-position: center;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  margin: 0px;
+  ${space({py: 5})}
 `
 
 export const StyledDimensionLabel = styled.h1`
@@ -40,4 +37,16 @@ export const StyledDimensionLabel = styled.h1`
   text-transform: capitalize;
   font-size: 40px;
   text-shadow: 2px 2px var(--pink);
+  ${space({m: 0, p: 0})}
+`
+
+export const StyledDimensionAction = styled.div`
+  float: right;
+  ${space({pt: 3})}
+  ${StyledButton} {
+    :hover {
+      background-color: var(--gray-lighten);
+      color: var(--black);
+    }
+  }
 `

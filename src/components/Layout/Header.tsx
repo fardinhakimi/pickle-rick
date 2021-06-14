@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { StyledHeader, StyledDimensionLabel, StyledContainer } from 'components/Layout/layout.components'
+import { StyledHeader, StyledDimensionLabel, StyledDimensionAction } from 'components/Layout/layout.components'
 import { useDimension } from 'hooks'
-import CustomModal from 'components/CustomModal'
-import DimensionPicker from 'components/DimensionPicker'
+import DimensionPickerModal from 'components/DimensionPickerModal'
+import Container from 'components/Layout/Container'
 import { StyledButton } from 'components/Location/location.components'
 
 export const Header = () => {
@@ -11,17 +11,19 @@ export const Header = () => {
 
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
+
+    const buttonText = dimension ?? 'Select a dimension'
     
 
   return (
     <StyledHeader>
-        <StyledContainer>
-          <StyledButton theme={{ bg: 'var(--gray-darken)', color: 'var(--white)'}} type="button" onClick={handleOpen}> Select a dimension</StyledButton>
-          <CustomModal open={open} handleClose={handleClose}>
-            <DimensionPicker/>
-          </CustomModal>
+        <Container>
+          <StyledDimensionAction>
+            <StyledButton theme={{ bg: 'var(--gray-darken)', color: 'var(--white)'}} type="button" onClick={handleOpen}> {buttonText}</StyledButton>
+          </StyledDimensionAction>
+          <DimensionPickerModal open={open} handleClose={handleClose}/>
           <StyledDimensionLabel> Visit your favorite locations at {dimension}</StyledDimensionLabel>
-        </StyledContainer>
+        </Container>
     </StyledHeader>
   )
 }
