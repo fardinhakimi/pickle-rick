@@ -30,6 +30,7 @@ export const StyledHeader = styled.div`
   background-size: cover;
   background-position: center;
   justify-content: center;
+  align-items: center;
 `
 
 export const StyledDimensionLabel = styled.h1`

@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from "react"
+import { useState, useReducer, useEffect, useRef } from "react"
 import { useDimension , useType} from "hooks"
 import LocationCard from "./LocationCard"
 import { StyledLocationContainer, StyledButton, StyledLoadMoreWrapper } from 'components/Location/location.components'
@@ -31,6 +31,7 @@ const LocationList = ({ locations }: { locations: Pickle.LocationFilterResult })
 
     const [page, setPage] = useState(2)
     const [currentLocations, dispatch] = useReducer(locationsReducer, locations)
+    const buttonRef = useRef<HTMLButtonElement>()
 
     useEffect(() => {
         dispatch({ type: actionTypes.RESET, payload: locations})
@@ -65,6 +66,7 @@ const LocationList = ({ locations }: { locations: Pickle.LocationFilterResult })
             .then( response => {
                 dispatch({ type: actionTypes.UPDATE_LOCATION_LIST, payload: response.locations})
                 setPage(page+1)
+                buttonRef.current.scrollIntoView({ behavior: 'smooth'})
             })
             .catch( error => {
                 console.error(error)
@@ -73,14 +75,14 @@ const LocationList = ({ locations }: { locations: Pickle.LocationFilterResult })
     }
 
     return (
-        <>
+        <div>
             <StyledLocationContainer>
                 {currentLocations.results.map( location => <LocationCard key={location.id} location={location}/>)}
             </StyledLocationContainer>
             <StyledLoadMoreWrapper>
-                { canLoadMore && <StyledButton onClick={handleLoadMore} theme={{bg: 'var(--pink)', color: 'var(--white)'}}>Load More</StyledButton> }
+                { canLoadMore && <StyledButton ref={buttonRef} onClick={handleLoadMore} theme={{bg: 'var(--pink)', color: 'var(--white)'}}>Load More</StyledButton> }
             </StyledLoadMoreWrapper>
-        </>
+        </div>
     )
 }
 
