@@ -66,7 +66,8 @@ const LocationList = ({ locations }: { locations: Pickle.LocationFilterResult })
             .then( response => {
                 dispatch({ type: actionTypes.UPDATE_LOCATION_LIST, payload: response.locations})
                 setPage(page+1)
-                buttonRef.current.scrollIntoView({ behavior: 'smooth'})
+                buttonRef?.current?.scrollIntoView({ behavior: 'smooth'})
+                
             })
             .catch( error => {
                 console.error(error)
