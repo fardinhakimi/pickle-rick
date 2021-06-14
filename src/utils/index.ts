@@ -253,7 +253,7 @@ const groupbyNonResidents = (guests: Array<Pickle.Character>) => {
 }
 
 
-const calculatePercentage= (total, number) => {
+const calculatePercentage= (total: number, number: number) => {
     if(number <= 0 || total <= 0) return 0
     return (100 * number) / total
 }
