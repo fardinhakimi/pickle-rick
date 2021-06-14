@@ -218,11 +218,6 @@ export enum CharacterStatus {
     Alive = 'Alive'
 }
 
-
-const calculateDemographics = (numberOfRobots: number, numberOfAliens: number, numberOfHumans: number) => {
-
-}
-
 const groupbyNonResidents = (guests: Array<Pickle.Character>) => {
 
 	const nonResidents: { humans: number, robots: number, aliens: number} = guests.reduce( (stats, character) => {
@@ -265,7 +260,7 @@ const calculatePercentage= (total, number) => {
 
 export const calculateStats = (location: Pickle.Location) => {
 
-    const aliveResidents = location.residents.filter( item => item.status === CharacterStatus.DEAD).length
+    const aliveResidents = location.residents.filter( item => item.status === CharacterStatus.Alive).length
 	const deadResidents = location.residents.filter( item => item.status === CharacterStatus.DEAD).length
 	const robots = location.residents.filter( item => item.species === Species.ROBOT)
 	const aliens = location.residents.filter( item => item.species === Species.ALIEN)
